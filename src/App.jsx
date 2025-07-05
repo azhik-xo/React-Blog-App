@@ -1,3 +1,7 @@
+// import of reacttoastify UI library to create toast message
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import PrivateLayout from "./components/layout/PrivateLayout";
@@ -12,19 +16,22 @@ import Login from "./pages/Login";
 
 function App() {
   return (
-    <Routes>
-      <Route element={<PrivateLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="categories" element={<CategoryList />} />
-        <Route path="posts" element={<PostList />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="settings" element={<Settings />} />
-      </Route>
-      <Route element={<PublicLayout />}>
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
-      </Route>
-    </Routes>
+    <>
+      <Routes>
+        <Route element={<PrivateLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="categories" element={<CategoryList />} />
+          <Route path="posts" element={<PostList />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+        <Route element={<PublicLayout />}>
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+        </Route>
+      </Routes>
+      <ToastContainer />
+    </>
   );
 }
 

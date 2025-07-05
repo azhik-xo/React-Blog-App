@@ -1,5 +1,14 @@
+//import required hooks
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+// import toast
+import { toast } from "react-toastify";
+
+//import axios for base url
+import axios from "../utils/axiosInstance";
+
+//import signup validator middleware
 import signupValidator from "../validators/signupValidator";
 
 const initialFormData = {
@@ -17,17 +26,23 @@ const initialFormError = {
 };
 
 const Signup = () => {
+  //form data getting hooks
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
+  //onChange event handling function
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  //onSubmit event handling function
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // signup validator middleware to validate the signup function
     const errors = signupValidator({
       name: formData.name,
       email: formData.email,
@@ -46,26 +61,39 @@ const Signup = () => {
       try {
         setLoading(true);
 
-        //api request
+        //api request and response
         const requestBody = {
           name: formData.name,
           email: formData.email,
           password: formData.password,
         };
-        const response = await axios.post(
-          "http://localhost:8000/api/v1/auth/sign-up",
-          requestBody
-        );
+        const response = await axios.post("/auth/sign-up", requestBody);
+        const data = response.data;
+
+        // toast message popup function
+        toast.success(data.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+
+        //back to default
         setFormData(initialFormData);
         setFormError(initialFormError);
         setLoading(false);
+
+        //final nav to login page or end of signup of a new user
+        navigate("/login");
       } catch (error) {
         setLoading(false);
-        console.log(error.message);
+        const response = error.response;
+        const data = response.data;
+
+        toast.error(data.message, {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
     }
-
-    console.log(formData);
   };
   return (
     <div className="form-container">
