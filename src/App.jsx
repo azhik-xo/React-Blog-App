@@ -6,6 +6,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import PrivateLayout from "./components/layout/PrivateLayout";
 import CategoryList from "./pages/category/CategoryList";
+import UpdateCategory from "./pages/category/UpdateCategory";
+import NewCategory from "./pages/category/NewCategory";
 import PostList from "./pages/post/PostList";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -21,6 +23,11 @@ function App() {
         <Route element={<PrivateLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="categories" element={<CategoryList />} />
+          <Route path="categories/new-category" element={<NewCategory />} />
+          <Route
+            path="categories/update-category"
+            element={<UpdateCategory />}
+          />
           <Route path="posts" element={<PostList />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
