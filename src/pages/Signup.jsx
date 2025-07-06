@@ -26,7 +26,7 @@ const initialFormError = {
 };
 
 const Signup = () => {
-  //form data getting hooks
+  //getting form data by hooks
   const [formData, setFormData] = useState(initialFormData);
   const [formError, setFormError] = useState(initialFormError);
   const [loading, setLoading] = useState(false);
@@ -73,7 +73,7 @@ const Signup = () => {
         // toast message popup function
         toast.success(data.message, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
 
         //back to default
@@ -90,7 +90,7 @@ const Signup = () => {
 
         toast.error(data.message, {
           position: "top-right",
-          autoClose: 3000,
+          autoClose: 2000,
         });
       }
     }
@@ -153,7 +153,7 @@ const Signup = () => {
           <input
             className="button"
             type="submit"
-            value={`${loading ? "Saving" : "Signup"}`}
+            value={`${loading ? "Saving..." : "Signup"}`}
           />
         </div>
       </form>

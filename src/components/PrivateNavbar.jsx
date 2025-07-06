@@ -1,6 +1,17 @@
 import { NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const PrivateNavbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    window.localStorage.removeItem("blogData");
+    toast.success("Logout successful", {
+      position: "top-right",
+      autoClose: 2000,
+    });
+    // navigate("/login");
+  };
   return (
     <nav className="primary-link">
       <NavLink to={"/"}>Home</NavLink>
@@ -8,7 +19,9 @@ const PrivateNavbar = () => {
       <NavLink to={"/posts"}>Posts</NavLink>
       <NavLink to={"/profile"}>Profile</NavLink>
       <NavLink to={"/settings"}>Settings</NavLink>
-      <NavLink to={"/login"}>Logout</NavLink>
+      <NavLink to={"/login"} onClick={handleLogout}>
+        Logout
+      </NavLink>
     </nav>
   );
 };

@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import PrivateNavbar from "../PrivateNavBar";
+import { useAuth } from "../context/AuthContext";
 
 const PrivateLayout = () => {
-  const auth = false;
+  const auth = useAuth();
 
   if (!auth) {
     return <Navigate to={"/login"} />;
