@@ -1,5 +1,6 @@
 // import of reacttoastify UI library to create toast message
 import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css"
 import { ToastContainer } from "react-toastify";
 
 import { Route, Routes } from "react-router-dom";

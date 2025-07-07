@@ -7,6 +7,8 @@ import axios from "../../utils/axiosInstance";
 
 import moment from "moment";
 
+import { Modal, Button } from "react-bootstrap";
+
 const CategoryList = () => {
   const navigate = useNavigate();
 
@@ -17,6 +19,7 @@ const CategoryList = () => {
   const [pageCount, setPageCount] = useState([]);
   const [size, setSize] = useState("5");
   const [search, setSearch] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -147,7 +150,9 @@ const CategoryList = () => {
                   >
                     Update
                   </button>
-                  <button className="button">Delete</button>
+                  <button className="button" onClick={() => setShowModal(true)}>
+                    Delete
+                  </button>
                 </th>
               </tr>
             ))}
@@ -193,6 +198,21 @@ const CategoryList = () => {
         <option value="10">10 per page</option>
         <option value="20">20 per page</option>
       </select>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Are you sure you want to delete ?</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Footer>
+          <div style={{ margin: "0 auto" }}>
+            <Button className="no-button" onClick={() => setShowModal(false)}>
+              No
+            </Button>
+            <Button className="yes-button">Yes</Button>
+          </div>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
