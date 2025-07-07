@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
@@ -20,6 +20,7 @@ const CategoryList = () => {
   const [size, setSize] = useState("5");
   const [search, setSearch] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [categoryId, setCategoryId] = useState(null);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -100,6 +101,35 @@ const CategoryList = () => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(`/category/${categoryId}`);
+
+      setShowModal(false);
+      const data = response.data;
+
+      toast.success(data.message, {
+        position: "top-right",
+        autoClose: 2000,
+      });
+
+      const response2 = await axios.get(
+        `/category?page=${currentPage}&size=${size}&q=${search}`
+      );
+      const data2 = response2.data.data;
+      setCategories(data2.categories);
+      setTotalPage(data2.pages);
+    } catch (error) {
+      setShowModal(false);
+      const response = error.response;
+      const data = response.data;
+      toast.error(data.message, {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    }
+  };
+
   return (
     <div>
       <button
@@ -150,7 +180,13 @@ const CategoryList = () => {
                   >
                     Update
                   </button>
-                  <button className="button" onClick={() => setShowModal(true)}>
+                  <button
+                    className="button"
+                    onClick={() => {
+                      setShowModal(true);
+                      setCategoryId(category._id);
+                    }}
+                  >
                     Delete
                   </button>
                 </th>
@@ -199,17 +235,31 @@ const CategoryList = () => {
         <option value="20">20 per page</option>
       </select>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal
+        show={showModal}
+        onHide={() => {
+          setShowModal(false);
+          setCategoryId(null);
+        }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Are you sure you want to delete ?</Modal.Title>
         </Modal.Header>
 
         <Modal.Footer>
           <div style={{ margin: "0 auto" }}>
-            <Button className="no-button" onClick={() => setShowModal(false)}>
+            <Button
+              className="no-button"
+              onClick={() => {
+                setShowModal(false);
+                setCategoryId(null);
+              }}
+            >
               No
             </Button>
-            <Button className="yes-button">Yes</Button>
+            <Button className="yes-button" onClick={handleDelete}>
+              Yes
+            </Button>
           </div>
         </Modal.Footer>
       </Modal>
