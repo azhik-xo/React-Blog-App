@@ -2,7 +2,7 @@
   display: flex;
   margin-top: 30px;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
 }
 .flexbox-container.wrap {
   flex-wrap: wrap;
