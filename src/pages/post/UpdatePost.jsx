@@ -42,6 +42,7 @@ const UpdatePost = () => {
           <div className="form-group">
             <label>Select an category</label>
             <select className="form-control">
+              <option value="select category">select category</option>
               <option value="Category 1">Category 1</option>
               <option value="Category 1">Category 2</option>
               <option value="Category 1">Category 3</option>
