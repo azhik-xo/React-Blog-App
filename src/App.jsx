@@ -44,7 +44,7 @@ function App() {
           <Route path="posts" element={<PostList />} />
           <Route path="posts/new-post" element={<NewPost />} />
           <Route path="posts/detail-post/:id" element={<DetailPost />} />
-          <Route path="posts/update-post" element={<UpdatePost />} />
+          <Route path="posts/update-post/:id" element={<UpdatePost />} />
           {/* //profile modal -------------------------------------------------- profile modal> */}
           <Route path="profile" element={<Profile />} />
           {/* //settings modal -------------------------------------------------- settings modal> */}
